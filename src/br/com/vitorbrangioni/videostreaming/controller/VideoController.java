@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.vitorbrangioni.videostraming.AmazonAwsS3;
+
 /**
  * Video Controller
  * 
@@ -26,7 +28,11 @@ public class VideoController {
 
 	@RequestMapping(value = "/encoding", method = RequestMethod.POST)
 	public void encoding(HttpSession session, @RequestParam("file") MultipartFile upload) {
+
 		String videoName = this.upload(session, upload);
+
+		AmazonAwsS3 s3 = new AmazonAwsS3();
+		s3.uploadSingleObject(this.submittedVideosPath + videoName, videoName);
 	}
 
 	@RequestMapping(value = "/encoding", method = RequestMethod.GET)
