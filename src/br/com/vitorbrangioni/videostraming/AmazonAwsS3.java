@@ -1,6 +1,7 @@
 package br.com.vitorbrangioni.videostraming;
 
 import java.io.File;
+import java.util.UUID;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -13,11 +14,18 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class AmazonAwsS3 {
 
-	private static String accessKey = "$#!@";
-	private static String secretKey = "$#!@";
+	private static String accessKey = "AKIAI4BO2WXP2UPQDMIQ";
+	private static String secretKey = "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";
 	private static String bucketName = "vitorbrangionivideoencoding/input";
+	private static String linkInputFile = "https://s3-sa-east-1.amazonaws.com/vitorbrangionivideoencoding/input/";
 
-	public void uploadSingleObject(String fullUploadFileName, String keyName) {
+	public static String getLinkInputFile() {
+		return linkInputFile;
+	}
+
+	public String uploadSingleObject(String fullUploadFileName, String keyName) {
+		String newFileName = UUID.randomUUID().toString();
+		
 		BasicAWSCredentials creds = new BasicAWSCredentials(accessKey, secretKey);
 		AmazonS3 s3client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(creds))
 				.withRegion("sa-east-1").build();
@@ -26,7 +34,7 @@ public class AmazonAwsS3 {
 			System.out.println("Uploading a new object to S3 from a file\n");
 			File file = new File(fullUploadFileName);
 			s3client.putObject(
-					new PutObjectRequest(bucketName, keyName, file).withCannedAcl(CannedAccessControlList.PublicRead));
+					new PutObjectRequest(bucketName, newFileName, file).withCannedAcl(CannedAccessControlList.PublicRead));
 
 		} catch (AmazonServiceException ase) {
 			System.out.println("Caught an AmazonServiceException, which " + "means your request made it "
@@ -42,6 +50,9 @@ public class AmazonAwsS3 {
 					+ "such as not being able to access the network.");
 			System.out.println("Error Message: " + ace.getMessage());
 		}
+		System.out.println("Enviado para Amazon S3");
+		
+		return newFileName;
 
 	}
 

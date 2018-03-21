@@ -21,6 +21,8 @@ public class HttpRequest {
 	}
 
 	public static JSONObject request(String url, Map<String, String> headers, Map<String, String> body) {
+		System.out.println("Comecando encoding do video");
+		
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		JSONObject jsonObject = new JSONObject(body);
 		JSONObject jsonReponse = null;
@@ -39,6 +41,7 @@ public class HttpRequest {
 		} catch (Exception ex) {
 			System.out.println("Http Request error");
 		}
+		System.out.println("Encoding do video foi finalizado");
 		return jsonReponse;
 	}
 }
