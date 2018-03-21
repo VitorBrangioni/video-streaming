@@ -33,14 +33,14 @@ public class VideoController {
 
 	@RequestMapping(value = "/encoding", method = RequestMethod.POST)
 	public void encoding(HttpSession session, @RequestParam("file") MultipartFile upload) {
-		
+
 		// 1) upload
 		String videoName = this.upload(session, upload);
-		
+
 		// 2) sending to Amazon
 		AmazonAwsS3 s3 = new AmazonAwsS3();
 		s3.uploadSingleObject(submittedVideosPath + videoName, videoName);
-		
+
 		// 3) encoding video
 		HashMap<String, String> header = new HashMap<>();
 		header.put("content-type", "application/json");
@@ -48,15 +48,20 @@ public class VideoController {
 
 		HashMap<String, String> body = new HashMap<>();
 		body.put("input", "http://dinamica-sambatech.s3.amazonaws.com/sample.dv");
-		
+
 		JSONObject response = HttpRequest.request(zencoderApiUrl, header, body);
-		
+
 		System.out.println(response.toString());
 	}
 
 	@RequestMapping(value = "/encoding", method = RequestMethod.GET)
 	public String enconding() {
-		return "form";
+		return "video-input";
+	}
+
+	@RequestMapping(value = "/output", method = RequestMethod.GET)
+	public String output() {
+		return "video-output";
 	}
 
 	private String upload(HttpSession session, MultipartFile upload) {
