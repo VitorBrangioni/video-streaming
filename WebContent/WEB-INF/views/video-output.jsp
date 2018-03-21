@@ -40,7 +40,7 @@ body {
 	<!-- the player -->
 	<div class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167">
 		<video> <source type="video/webm"
-			src="https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20180321/967eff11877d6a00e9a24603df0427b3/c075ab6535d1660e2faabcccf4448f3c.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAI456JQ76GBU7FECA%2F20180321%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20180321T050031Z&X-Amz-Expires=86399&X-Amz-SignedHeaders=host&X-Amz-Signature=845e601a51ff51103ac3d6942228ffe2f2dda13e1cde282a55d0d5ac8ad10ba6">
+			src="${videoPath}">
 		<source type="video/mp4" src="https://edge.flowplayer.org/bauhaus.mp4"></video>
 	</div>
 </body>
