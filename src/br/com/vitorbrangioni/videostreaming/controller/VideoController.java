@@ -2,7 +2,6 @@ package br.com.vitorbrangioni.videostreaming.controller;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
